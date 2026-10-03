@@ -1,5 +1,28 @@
-<!doctype html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Comex | Expedientes de importación</title><meta name="description" content="Prototipo de gestión de importaciones: PO desde maestros aprobados, documentos y ficha de importación."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23102036'/%3E%3Cpath d='M8 9h16v14H8zM13 9v14M19 9v14' fill='none' stroke='%2328d7ac' stroke-width='2'/%3E%3C/svg%3E"><link rel="stylesheet" href="style.css"><script defer src="jszip.min.js"></script><script defer src="app.js"></script><script defer src="workflow.js"></script></head><body>
-<aside class="sidebar"><a class="brand" href="#">▦ <span>comex<span class="brandDot">.</span></span></a><div class="sideLabel">OPERACIONES</div><button class="nav active" id="goOrders">▤ &nbsp; Expedientes</button><button class="nav" id="goArchitecture">⌘ &nbsp; Integraciones</button><div class="sideBottom"><div class="avatar">MO</div><div>Marcelo Olea<small>Prototipo · 02 oct 2026</small></div></div></aside>
-<main><header><div class="breadcrumb">Operaciones <span>/</span> Importaciones</div><div class="demoBadge">PROTOTIPO</div></header><div class="sessionNotice">Datos ficticios y trabajo temporal en esta pestaña. Al recargar se reinicia. Las aprobaciones son simuladas. M365 y el análisis automático están pendientes; MANAGER se registra manualmente.</div><div id="content"></div></main>
-<dialog id="importDialog"><form id="importForm"><div class="modalHead"><div><span class="eyebrow">ENTRADA DE DATOS</span><h2>Importar PO desde Excel</h2></div><button type="button" class="iconButton" id="closeImport" aria-label="Cerrar">×</button></div><p>Selecciona una hoja y relaciona sus columnas. Cada PO puede contener varios productos.</p><input type="file" id="excelFile" accept=".xlsx,.csv"><p class="muted">.xlsx o CSV · máximo 10 MB · no se envía a un servidor</p><a href="plantilla_po.xlsx" download class="textLink">Descargar Excel de ejemplo</a><div id="mapping"></div><div id="importError" class="error" role="alert"></div><footer class="modalFoot"><button type="button" class="secondary" id="cancelImport">Cancelar</button><button class="primary" id="importSubmit" disabled>Importar expedientes</button></footer></form></dialog>
-<div id="toast" role="status"></div></body></html>
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>COMEX · Gestión de importaciones</title>
+  <meta name="description" content="Prototipo COMEX: solicitudes, aprobaciones y seguimiento de órdenes de compra con automatización documental de ejemplo.">
+  <meta name="theme-color" content="#10283e">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2310283e'/%3E%3Cpath d='M8 9h16v14H8zM13 9v14M19 9v14' fill='none' stroke='%2335d1ab' stroke-width='2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css?v=20261003-2">
+  <script defer src="jszip.min.js"></script><script defer src="workflow.js?v=20261003-2"></script><script defer src="app.js?v=20261003-2"></script>
+</head>
+<body>
+  <a class="skip" href="#content">Ir al contenido</a>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="#history" aria-label="COMEX, historial de PO"><span class="brand-icon">C</span><span>comex<span class="brand-dot">.</span><small>GESTIÓN DE IMPORTACIONES</small></span></a>
+    <p class="nav-caption">OPERACIÓN</p><nav id="navigation" aria-label="Navegación principal"></nav>
+    <div class="sidebar-bottom"><div class="avatar">MO</div><div>Marcelo Olea<small>Prototipo · 03 oct 2026</small></div></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar"><div class="topbar-left"><button class="icon-button mobile-menu" id="menuToggle" aria-label="Abrir menú" aria-expanded="false">☰</button><span>Operaciones <span class="slash">/</span> <strong id="breadcrumb">Historial de PO</strong></span></div><div class="topbar-right"><button class="top-button" data-action="guide">Cómo presentar</button><button class="notification" data-action="alerts" aria-label="Ver alertas"><span aria-hidden="true">◷</span><span id="alertCount"></span></button><span class="prototype">DEMO</span></div></header>
+    <div class="demo-notice"><span class="notice-dot"></span><span>Datos ficticios. Correos, extracción y aprobaciones simulados. Esta sesión se reinicia al recargar.</span><button data-action="limitations">Ver alcance</button></div>
+    <main id="content" tabindex="-1"></main>
+    <footer class="site-footer"><span>COMEX · Prototipo de operación</span><span>Una PO por embarque · Regla pendiente de validación</span></footer>
+  </div>
+  <dialog id="modal" aria-labelledby="modal-title"><div id="modal-body"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
