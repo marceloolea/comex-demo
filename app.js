@@ -55,8 +55,8 @@
     if(f.eta)rows.push(['ETA',DATE(f.eta),'Cuerpo del correo / informe de ejemplo']);
     if(f.etd)rows.push(['ETD',DATE(f.etd),'Cuerpo del correo / informe de ejemplo']);
     if(f.shipment)rows.push(['Embarque',f.shipment,'Cuerpo del correo / informe de ejemplo']);
-    if(m.kind==='shipment')rows.push(['Cantidad',NUM(m.metadata.quantity)+' kg','Documento de ejemplo'],['Mercadería',USD(m.metadata.totalUSD),'Documento de ejemplo'],['Flete',USD(m.metadata.freightUSD),'Documento de ejemplo'],['Seguro',USD(m.metadata.insuranceUSD),'Documento de ejemplo']);
-    if(m.kind==='liquidation')rows.push(['Gastos',CLP(m.metadata.customsCLP),'Liquidación de ejemplo'],['IVA informado',CLP(m.metadata.vatCLP),'Liquidación de ejemplo']);
+    if(m.kind==='shipment'&&m.metadata)rows.push(['Cantidad',NUM(m.metadata.quantity)+' kg','Documento de ejemplo'],['Mercadería',USD(m.metadata.totalUSD),'Documento de ejemplo'],['Flete',USD(m.metadata.freightUSD),'Documento de ejemplo'],['Seguro',USD(m.metadata.insuranceUSD),'Documento de ejemplo']);
+    if(m.kind==='liquidation'&&m.metadata)rows.push(['Gastos',CLP(m.metadata.customsCLP),'Liquidación de ejemplo'],['IVA informado',CLP(m.metadata.vatCLP),'Liquidación de ejemplo']);
     if(!rows.length)return '';
     return '<h3 style="margin-top:22px">Información incorporada</h3><div class="table-scroll"><table><thead><tr><th>CAMPO</th><th>VALOR</th><th>ORIGEN</th></tr></thead><tbody>'+rows.map(([k,v,source])=>'<tr><td>'+E(k)+'</td><td>'+E(v)+'</td><td class="muted small">'+E(source)+'</td></tr>').join('')+'</tbody></table></div>';
   }
